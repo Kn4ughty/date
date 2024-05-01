@@ -1,3 +1,4 @@
+import sys
 import re
 
 monthsDict = {
@@ -163,7 +164,7 @@ def longStrToShortString(i: str) -> str:
     d = longStrToDate(i)
 
     if isinstance(d, str):
-        return "Invalid"
+        return f"Invalid {d}"
 
     return d.toShortDate()
 
@@ -181,7 +182,7 @@ def shortStringToDate(i: str) -> date | str:
     d = date(day, month, year)
 
     if not d.isValid():
-        return "Invalid"
+        return "Valid date was not given"
     
     return d
 
@@ -189,16 +190,31 @@ def shortStringToLongString(i: str) -> str:
     d = shortStringToDate(i)
 
     if isinstance(d, str):
-        return "Invalid"
+        return f"Invalid {d}"
 
     return d.toLongDate()
 
-def getInput():
-    pass
+
+try:
+    f = sys.argv[1]
+except IndexError:
+    f = ""
 
 def main():
+    i = input("#: ")
     while True:
-        pass
+        if f == "l-s":
+            print(longStrToShortString(i))
+        elif f == "s-l":
+            print(shortStringToLongString(i))
+        elif f == "":
+            print("no Args supplied. Quitting")
+            sys.exit()
+        else:
+            print("Invalid argument. Quitting")
+            sys.exit()
+        
+        i = input("#: ")
 
 
 if __name__ == "__main__":
