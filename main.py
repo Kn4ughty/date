@@ -193,4 +193,13 @@ def shortStringToLongString(i: str) -> str:
 
     return d.toLongDate()
 
-print(shortStringToLongString("10/5/202"))
+def getInput():
+    pass
+
+def main():
+    while True:
+        pass
+
+
+if __name__ == "__main__":
+    main()
