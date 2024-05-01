@@ -11,6 +11,9 @@ class TestStringFormating(unittest.TestCase):
 
 
 
+    def testPrintLongDate(self):
+        self.assertEqual(dates.ShortToLongDate([1, 1, 2000]), "1st January, 2000")
+        self.assertEqual(dates.ShortToLongDate([22, 12, 1]), "22nd December, 1")
 
 
 if __name__ == "__main__":
