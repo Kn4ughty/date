@@ -37,5 +37,20 @@ class testDateValidation(unittest.TestCase):
         self.assertFalse(date(31, 4, 1).isValid())
         # Testing every month would take too long
 
+class testStrToStr(unittest.TestCase):
+    
+    def testLongStrToShortString(self):
+        self.assertEqual(main.longStrToShortString("10th May, 2024"), "10/5/2024")
+        self.assertEqual(main.longStrToShortString("22nd December, 0"), "22/12/0")
+        self.assertEqual(main.longStrToShortString("twafhfh hfdsk k"), "Invalid")
+        # TEST INVALID
+        # TODO
+
+    def testShortStrToLongString(self):
+        self.assertEqual(main.shortStringToLongString("10/5/2024"), "10th May, 2024")
+        self.assertEqual(main.shortStringToLongString("29/2/4"), "29th February, 4")
+        self.assertEqual(main.shortStringToLongString("29/2/2021"), "Invalid")
+        
+
 if __name__ == "__main__":
     unittest.main()
