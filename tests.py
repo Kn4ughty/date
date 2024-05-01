@@ -18,17 +18,24 @@ class TestStringFormating(unittest.TestCase):
 class testDateValidation(unittest.TestCase):
 
     def testLeapYears(self):
-        self.assertTrue(date(29, 2, 2024))
-        self.assertTrue(date(29, 2, 1900))
-        self.assertFalse(date(29, 2, 1800))
+        self.assertTrue(date(29, 2, 2024).isValid())
+        self.assertFalse(date(29, 2, 1900).isValid())
+        self.assertFalse(date(29, 2, 1800).isValid())
     
     def testDays(self):
-        self.assertFalse(date(0, 1, 1))
-        self.assertFalse(date(-1, 1, 1))
-        self.assertTrue(date(1, 1, 1))
+        self.assertFalse(date(0, 1, 1).isValid())
+        self.assertFalse(date(-1, 1, 1).isValid())
+        self.assertTrue(date(1, 1, 1).isValid())
     
+    def testMonths(self):
+        self.assertFalse(date(1, 0, 1).isValid())
+        self.assertFalse(date(1, 13, 1).isValid())
+        self.assertFalse(date(1, -1, 1).isValid())
 
-
+    def testDaysOfMonths(self):
+        self.assertTrue(date(30, 4, 1).isValid())
+        self.assertFalse(date(31, 4, 1).isValid())
+        # Testing every month would take too long
 
 if __name__ == "__main__":
     unittest.main()

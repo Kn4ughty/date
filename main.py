@@ -2,7 +2,6 @@
 # 30/4/2024
 # 30th April, 2024
 
-
 class date(object):
 
     # Could be a dataclass i cant be bothered
@@ -11,14 +10,13 @@ class date(object):
     month: int
     year: int
 
-    def __init__(self, day: int, month: int, year: int) -> bool:
+    def __init__(self, day: int, month: int, year: int):
         self.day = day
         self.month = month
         self.year = year
         
-        return self.validate()
 
-    def validate(self) -> bool:
+    def isValid(self) -> bool:
         
         # Leap years
         isLeapYear = self.isLeapYear()
@@ -73,6 +71,8 @@ class date(object):
             else:
                 return False
         
+        return True
+        
         
 
     def toLongDate(self) -> str:
@@ -113,3 +113,8 @@ def month_num_to_string(month: int) -> str:
         12: "December"}
     
     return monthsDict[month]
+
+
+
+date(29, 2, 2024).isValid()
+
