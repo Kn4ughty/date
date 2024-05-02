@@ -210,8 +210,8 @@ def main():
             print("no Args supplied. Quitting")
             sys.exit()
         else:
-            print("Invalid argument. Quitting")
-            sys.exit()
+            print("Invalid argument. assuming s-l")
+            print(shortStringToLongString(i))
         
         i = input("#: ")
 

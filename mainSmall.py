@@ -5,8 +5,7 @@ class date(object):
         self.day, self.month, self.year = day, month, year
     def isValid(self) -> bool:
         if self.month == 2:
-            if self.day == 29 and not (isLeapYear := self.isLeapYear()):
-                return False
+            return False if (self.day == 29 and not (isLeapYear := self.isLeapYear())) else 1
 
         monthLengths = {
             1: 31,
@@ -168,8 +167,8 @@ def main():
             print("no Args supplied. Quitting")
             sys.exit()
         else:
-            print("Invalid argument. Quitting")
-            sys.exit()
+            print("Invalid argument. assuming s-l")
+            print(shortStringToLongString(i))
         
         i = input("#: ")
 
