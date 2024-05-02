@@ -128,7 +128,7 @@ def month_num_to_string(month: int) -> str:
     return monthsDict[month]
 
 
-def longStrToDate(i: str, checkDate: bool = True) -> date | str:
+def long_str_to_date(i: str, checkDate: bool = True) -> date | str:
     #"10th May, 2024"
     
     i = i.split(" ")
@@ -162,16 +162,16 @@ def longStrToDate(i: str, checkDate: bool = True) -> date | str:
 
     return d
     
-def longStrToShortString(i: str) -> str:
+def long_str_to_short_string(i: str) -> str:
     
-    d = longStrToDate(i)
+    d = long_str_to_date(i)
 
     if isinstance(d, str):
         return f"Invalid {d}"
 
     return d.toShortDate()
 
-def shortStringToDate(i: str) -> date | str:
+def short_string_to_date(i: str) -> date | str:
     # 10/5/2024
     i = i.split("/")
     
@@ -189,8 +189,8 @@ def shortStringToDate(i: str) -> date | str:
     
     return d
 
-def shortStringToLongString(i: str) -> str:
-    d = shortStringToDate(i)
+def short_string_to_long_string(i: str) -> str:
+    d = short_string_to_date(i)
 
     if isinstance(d, str):
         return f"Invalid {d}"
@@ -207,15 +207,15 @@ def main():
     i = input("#: ")
     match f:
         case "l-s":
-            print(longStrToShortString(i))
+            print(long_str_to_short_string(i))
         case "s-l":
-            print(shortStringToLongString(i))
+            print(short_string_to_long_string(i))
         case "":
             print("no Args supplied. Quitting")
             sys.exit()
         case _:
             print("Invalid argument. Assuming s-l")
-            print(shortStringToLongString(i))
+            print(short_string_to_long_string(i))
     
     i = input("#: ")
 
