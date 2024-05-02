@@ -1,51 +1,9 @@
-import sys
-import re
-
-monthsDict = {
-    1: "January",
-    2: "February",
-    3: "March",
-    4: "April",
-    5: "May",
-    6: "June",
-    7: "July",
-    8: "August",
-    9: "September",
-    10: "October",
-    11: "November",
-    12: "December"
-}
-
-reversedMonthsDict = {
-    "January": 1,
-    "February": 2,
-    "March": 3,
-    "April": 4,
-    "May": 5,
-    "June": 6,
-    "July": 7,
-    "August": 8,
-    "September": 9,
-    "October": 10,
-    "November": 11,
-    "December": 12
-}
-
-
-
+import sys, re
+monthsDict, reversedMonthsDict = {1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}, { "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6, "July": 7, "August": 8, "September": 9, "October": 10, "November": 11, "December": 12}
 class date(object):
-    day: int
-    month: int
-    year: int
-
     def __init__(self, day: int, month: int, year: int):
-        self.day = day
-        self.month = month
-        self.year = year
-        
-
+        self.day, self.month, self.year = day, month, year
     def isValid(self) -> bool:
-        # Leap years
         if self.month == 2:
             if self.day == 29 and not (isLeapYear := self.isLeapYear()):
                 return False
