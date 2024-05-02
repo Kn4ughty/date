@@ -4,174 +4,51 @@ class date(object):
     def __init__(self, day: int, month: int, year: int):
         self.day, self.month, self.year = day, month, year
     def isValid(self) -> bool:
-        if self.month == 2:
-            return False if (self.day == 29 and not (isLeapYear := self.isLeapYear())) else 1
-
-        monthLengths = {
-            1: 31,
-            2: (29 if isLeapYear else 28),
-            3: 31,
-            4: 30,
-            5: 31,
-            6: 30,
-            7: 31,
-            8: 31,
-            9: 30,
-            10: 31,
-            11: 30,
-            12: 31,
-        }
-
-        if self.month > 12 or self.month <= 0:
-            return False
-        
-        if self.day <= 0:
-            return False
-
-        if self.day > monthLengths[self.month]:
-            return False
-
-        return True
-
-        
-        
+        isLeapYear = self.isLeapYear()
+        monthLengths = { 1: 31, 2: (29 if isLeapYear else 28), 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31,}
+        return False if self.month == 2 and self.day == 29 and not isLeapYear or (self.month > 12 or self.month <= 0) or (self.day <= 0) or (self.day > monthLengths[self.month]) else True
     def isLeapYear(self) -> bool:
-        # Reference material
-        # Every year that is exactly divisible by four is a leap year, 
-        # except for years that are exactly divisible by 100,
-        #  but these centurial years are leap years if they are exactly divisible by 400. 
-        # For example, the years 1700, 1800, and 1900 are not leap years, but the years 1600 and 2000 are
-
-        if self.year % 4 != 0:
-            return False
-
-        if self.year % 100 == 0:
-            if self.year % 400 == 0:
-                pass
-            else:
-                return False
-        
-        return True
-        
-        
-
-    def toLongDate(self) -> str:
-        day = f"{self.day}{get_ordinal_indicator(self.day)}"
-
-        return f"{day} {month_num_to_string(self.month)}, {self.year}"
-
+        return False if (self.year % 4 != 0) or (self.year % 100 == 0 and not self.year % 400 == 0) else True
     def toShortDate(self) -> str:
         return f"{self.day}/{self.month}/{self.year}"
-
-
 def get_ordinal_indicator(num: int) -> str:
-    d = {1: "st",
-        2: "nd",
-        3: "rd",
-        4: "th",
-        5: "th",
-        6: "th",
-        8: "th",
-        9: "th",
-        0: "th"}
-
+    d = {1: "st", 2: "nd", 3: "rd", 4: "th", 5: "th", 6: "th", 8: "th", 9: "th", 0: "th"}
     return d[num % 10]
-
 def month_num_to_string(month: int) -> str:    
     return monthsDict[month]
-
-
 def longStrToDate(i: str, checkDate: bool = True) -> date | str:
-    #"10th May, 2024"
-    
     i = i.split(" ")
     if len(i) < 3:
         return "Could not seperate"
-
     try:
         day = int(re.match("\\d+", i[0]).group(0))
-    except ValueError:
-        return "Couldnt int the day"
     except AttributeError:
         return "Day did not match regex"
-
-
     try:
         monthStr = re.match("[a-zA-Z]+", i[1]).group(0)
     except AttributeError:
         return "Year did not match regex"
-
     month = reversedMonthsDict[monthStr]
-    
     try:
         year = int(i[2])
     except ValueError:
         return "Couldnt int the year"
-
-    d = date(day, month, year)
-
-    if not d.isValid() and checkDate:
-        return "Was not a valid date"
-
-    return d
-    
+    return "Valid date was not given" if not date(day, month, year).isValid() else date(day, month, year)
 def longStrToShortString(i: str) -> str:
-    
-    d = longStrToDate(i)
-
-    if isinstance(d, str):
-        return f"Invalid {d}"
-
-    return d.toShortDate()
-
+    return f"Invalid {longStrToDate(i)}"if isinstance(longStrToDate(i), str) else longStrToDate(i).toShortDate()
 def shortStringToDate(i: str) -> date | str:
-    # 10/5/2024
     i = i.split("/")
-    
     try:
-        day = int(i[0])
-        month = int(i[1])
-        year = int(i[2])
+        day, month, year = int(i[0]), int(i[1]), int(i[2])
     except ValueError:
         return "failed to turn into int"
-
-    d = date(day, month, year)
-
-    if not d.isValid():
-        return "Valid date was not given"
-    
-    return d
-
-def shortStringToLongString(i: str) -> str:
-    d = shortStringToDate(i)
-
-    if isinstance(d, str):
-        return f"Invalid {d}"
-
-    return d.toLongDate()
-
-
-try:
-    f = sys.argv[1]
-except IndexError:
-    f = "s-l" # Default args for easy debugging
-
-def main():
+    return "Valid date was not given" if not date(day, month, year).isValid() else date(day, month, year)
+f = sys.argv[1] if len(sys.argv) > 1 else "s-l"
+def noargs():
+    print("no Args supplied. Quitting")
+    sys.exit()
+if __name__ == "__main__":
     i = input("#: ")
     while True:
-        if f == "l-s":
-            print(longStrToShortString(i))
-        elif f == "s-l":
-            print(shortStringToLongString(i))
-        elif f == "":
-            print("no Args supplied. Quitting")
-            sys.exit()
-        else:
-            print("Invalid argument. assuming s-l")
-            print(shortStringToLongString(i))
-        
+        print(longStrToShortString(i)) if f == "l-s" else print(f"Invalid {shortStringToDate(i)}" if isinstance(shortStringToDate(i), str) else f"{shortStringToDate(i).day}{get_ordinal_indicator(shortStringToDate(i).day)} {month_num_to_string(shortStringToDate(i).month)}, {shortStringToDate(i).year}") if f == "s-l" else noargs() if f == "" else print(f"Invalid {shortStringToDate(i)}" if isinstance(shortStringToDate(i), str) else f"{shortStringToDate(i).day}{get_ordinal_indicator(shortStringToDate(i).day)} {month_num_to_string(shortStringToDate(i).month)}, {shortStringToDate(i).year}")
         i = input("#: ")
-
-
-if __name__ == "__main__":
-    main()

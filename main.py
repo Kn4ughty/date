@@ -46,8 +46,9 @@ class date(object):
 
     def isValid(self) -> bool:
         # Leap years
+        isLeapYear = self.isLeapYear()
         if self.month == 2:
-            if self.day == 29 and not (isLeapYear := self.isLeapYear()):
+            if self.day == 29 and not isLeapYear:
                 return False
 
         monthLengths = {
@@ -100,6 +101,9 @@ class date(object):
 
     def toLongDate(self) -> str:
         day = f"{self.day}{get_ordinal_indicator(self.day)}"
+        
+        if self.month > 12 or self.month <= 0:
+            return "ERR month invalid"
 
         return f"{day} {month_num_to_string(self.month)}, {self.year}"
 
