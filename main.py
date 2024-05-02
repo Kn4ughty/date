@@ -205,20 +205,21 @@ except IndexError:
 
 def main():
     i = input("#: ")
-    while True:
-        if f == "l-s":
+    match f:
+        case "l-s":
             print(longStrToShortString(i))
-        elif f == "s-l":
+        case "s-l":
             print(shortStringToLongString(i))
-        elif f == "":
+        case "":
             print("no Args supplied. Quitting")
             sys.exit()
-        else:
-            print("Invalid argument. assuming s-l")
+        case _:
+            print("Invalid argument. Assuming s-l")
             print(shortStringToLongString(i))
-        
-        i = input("#: ")
+    
+    i = input("#: ")
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
