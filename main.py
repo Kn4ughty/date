@@ -197,7 +197,7 @@ def shortStringToLongString(i: str) -> str:
 try:
     f = sys.argv[1]
 except IndexError:
-    f = ""
+    f = "s-l" # Default args for easy debugging
 
 def main():
     i = input("#: ")
