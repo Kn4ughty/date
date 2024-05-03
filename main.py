@@ -13,8 +13,7 @@ monthsDict = {
     9: "September",
     10: "October",
     11: "November",
-    12: "December"
-}
+    12: "December"}
 
 reversedMonthsDict = {
     "January": 1,
@@ -28,9 +27,7 @@ reversedMonthsDict = {
     "September": 9,
     "October": 10,
     "November": 11,
-    "December": 12
-}
-
+    "December": 12}
 
 
 class date(object):
@@ -63,8 +60,7 @@ class date(object):
             9: 30,
             10: 31,
             11: 30,
-            12: 31,
-        }
+            12: 31}
 
         if self.month > 12 or self.month <= 0:
             return False
@@ -77,7 +73,6 @@ class date(object):
 
         return True
 
-        
         
     def isLeapYear(self) -> bool:
         # Reference material
@@ -96,8 +91,7 @@ class date(object):
                 return False
         
         return True
-        
-        
+
 
     def toLongDate(self) -> str:
         day = f"{self.day}{get_ordinal_indicator(self.day)}"
@@ -161,7 +155,8 @@ def long_str_to_date(i: str, checkDate: bool = True) -> date | str:
         return "Was not a valid date"
 
     return d
-    
+
+
 def long_str_to_short_string(i: str) -> str:
     
     d = long_str_to_date(i)
@@ -170,6 +165,7 @@ def long_str_to_short_string(i: str) -> str:
         return f"Invalid {d}"
 
     return d.toShortDate()
+
 
 def short_string_to_date(i: str) -> date | str:
     # 10/5/2024
@@ -189,6 +185,7 @@ def short_string_to_date(i: str) -> date | str:
     
     return d
 
+
 def short_string_to_long_string(i: str) -> str:
     d = short_string_to_date(i)
 
@@ -197,11 +194,6 @@ def short_string_to_long_string(i: str) -> str:
 
     return d.toLongDate()
 
-
-try:
-    f = sys.argv[1]
-except IndexError:
-    f = "s-l" # Default args for easy debugging
 
 def main():
     i = input("#: ")
@@ -221,5 +213,10 @@ def main():
 
 
 if __name__ == "__main__":
+    try:
+        f = sys.argv[1]
+    except IndexError:
+        f = "s-l" # Default args for easy debugging
+
     while True:
         main()
