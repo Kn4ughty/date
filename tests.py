@@ -3,7 +3,7 @@ import unittest
 import main
 from main import date
 
-class TestStringFormating(unittest.TestCase):
+class testStringFormating(unittest.TestCase):
 
     def testOrdinals(self):
         self.assertEqual(main.get_ordinal_indicator(2), "nd")
@@ -42,14 +42,14 @@ class testStrToStr(unittest.TestCase):
     def testLongStrToShortString(self):
         self.assertEqual(main.long_str_to_short_string("10th May, 2024"), "10/5/2024")
         self.assertEqual(main.long_str_to_short_string("22nd December, 0"), "22/12/0")
-        self.assertEqual(main.long_str_to_short_string("twafhfh hfdsk k").split(" ")[0], "Invalid")
+        self.assertEqual(main.long_str_to_short_string("twafhfh hfdsk k").split(" ")[0], "Invalid:")
         # TEST INVALID
         # TODO
 
     def testShortStrToLongString(self):
         self.assertEqual(main.short_string_to_long_string("10/5/2024"), "10th May, 2024")
         self.assertEqual(main.short_string_to_long_string("29/2/4"), "29th February, 4")
-        self.assertEqual(main.short_string_to_long_string("29/2/2021").split(" ")[0], "Invalid")
+        self.assertEqual(main.short_string_to_long_string("29/2/2021").split(" ")[0], "Invalid:")
         
 
 if __name__ == "__main__":

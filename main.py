@@ -162,7 +162,7 @@ def long_str_to_short_string(i: str) -> str:
     d = long_str_to_date(i)
 
     if isinstance(d, str):
-        return f"Invalid {d}"
+        return f"Invalid: {d}"
 
     return d.toShortDate()
 
@@ -190,7 +190,7 @@ def short_string_to_long_string(i: str) -> str:
     d = short_string_to_date(i)
 
     if isinstance(d, str):
-        return f"Invalid {d}"
+        return f"Invalid: {d}"
 
     return d.toLongDate()
 
