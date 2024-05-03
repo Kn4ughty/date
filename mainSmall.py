@@ -4,18 +4,8 @@ class date(object):
     def __init__(self, day: int, month: int, year: int):
         self.day, self.month, self.year = day, month, year
     def isValid(self) -> bool:
-        isLeapYear = self.isLeapYear()
-        monthLengths = { 1: 31, 2: (29 if isLeapYear else 28), 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31,}
-        return False if self.month == 2 and self.day == 29 and not isLeapYear or (self.month > 12 or self.month <= 0) or (self.day <= 0) or (self.day > monthLengths[self.month]) else True
-    def isLeapYear(self) -> bool:
-        return False if (self.year % 4 != 0) or (self.year % 100 == 0 and not self.year % 400 == 0) else True
-    def toShortDate(self) -> str:
-        return f"{self.day}/{self.month}/{self.year}"
-def get_ordinal_indicator(num: int) -> str:
-    d = {1: "st", 2: "nd", 3: "rd", 4: "th", 5: "th", 6: "th", 8: "th", 9: "th", 0: "th"}
-    return d[num % 10]
-def month_num_to_string(month: int) -> str:    
-    return monthsDict[month]
+        monthLengths = { 1: 31, 2: (29 if (False if (self.year % 4 != 0) or (self.year % 100 == 0 and not self.year % 400 == 0) else True) else 28), 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31,}
+        return False if self.month == 2 and self.day == 29 and not (False if (self.year % 4 != 0) or (self.year % 100 == 0 and not self.year % 400 == 0) else True) or (self.month > 12 or self.month <= 0) or (self.day <= 0) or (self.day > monthLengths[self.month]) else True
 def longStrToDate(i: str, checkDate: bool = True) -> date | str:
     i = i.split(" ")
     if len(i) < 3:
@@ -34,8 +24,6 @@ def longStrToDate(i: str, checkDate: bool = True) -> date | str:
     except ValueError:
         return "Couldnt int the year"
     return "Valid date was not given" if not date(day, month, year).isValid() else date(day, month, year)
-def longStrToShortString(i: str) -> str:
-    return f"Invalid {longStrToDate(i)}"if isinstance(longStrToDate(i), str) else longStrToDate(i).toShortDate()
 def shortStringToDate(i: str) -> date | str:
     i = i.split("/")
     try:
@@ -48,7 +36,6 @@ def noargs():
     print("no Args supplied. Quitting")
     sys.exit()
 if __name__ == "__main__":
-    i = input("#: ")
     while True:
-        print(longStrToShortString(i)) if f == "l-s" else print(f"Invalid {shortStringToDate(i)}" if isinstance(shortStringToDate(i), str) else f"{shortStringToDate(i).day}{get_ordinal_indicator(shortStringToDate(i).day)} {month_num_to_string(shortStringToDate(i).month)}, {shortStringToDate(i).year}") if f == "s-l" else noargs() if f == "" else print(f"Invalid {shortStringToDate(i)}" if isinstance(shortStringToDate(i), str) else f"{shortStringToDate(i).day}{get_ordinal_indicator(shortStringToDate(i).day)} {month_num_to_string(shortStringToDate(i).month)}, {shortStringToDate(i).year}")
         i = input("#: ")
+        print(f"Invalid {longStrToDate(i)}"if isinstance(longStrToDate(i), str) else f"{longStrToDate(i).day}/{longStrToDate(i).month}/{longStrToDate(i).year}") if f == "l-s" else print(f"Invalid {shortStringToDate(i)}" if isinstance(shortStringToDate(i), str) else f"{shortStringToDate(i).day}{ {1: "st", 2: "nd", 3: "rd", 4: "th", 5: "th", 6: "th", 8: "th", 9: "th", 0: "th"}[shortStringToDate(i).day % 10]} {monthsDict[shortStringToDate(i).month]}, {shortStringToDate(i).year}") if f == "s-l" else noargs() if f == "" else print(f"Invalid {shortStringToDate(i)}" if isinstance(shortStringToDate(i), str) else f"{shortStringToDate(i).day}{ {1: "st", 2: "nd", 3: "rd", 4: "th", 5: "th", 6: "th", 8: "th", 9: "th", 0: "th"}[shortStringToDate(i).day % 10]} {monthsDict[shortStringToDate(i).month]}, {shortStringToDate(i).year}")
